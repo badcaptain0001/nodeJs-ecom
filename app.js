@@ -30,14 +30,14 @@ app.post('/contact', async (req, res) => {
   try {
     const myUser = new User(req.body);
     await myUser.save();
-    res.send(myUser);
+    res.send("request is processed");
   }
   catch (err) {
     res.send(err);
   }
 });
 
-app.listen(8000, () => {
-  console.log('Server started on port 8000');
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
 }
 );
