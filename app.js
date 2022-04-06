@@ -6,7 +6,7 @@ require('dotenv').config();
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Hello World!!!! nmode mon is working fine');
+  res.send('Helo this is backend for practice only');
 });
 app.get('/users', (req, res) => {
   res.send([{
