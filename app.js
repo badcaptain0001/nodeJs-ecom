@@ -2,12 +2,27 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
+var cors = require('cors');
 const User = require('./model/user');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+const corsOpts = {
+  origin: '*',
+
+  methods: [
+    'GET',
+    'POST',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
+
+app.use(cors(corsOpts));
 // this is home page
 app.get('/', (req, res) => {
   res.send('Helo this is backend for practice only');
