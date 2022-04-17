@@ -6,7 +6,6 @@ const storage = new GridFsStorage({
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
     const match = ["image/png", "image/jpeg"];
-
     if(match.indexOf(file.mimetype)=== -1){
       const filename = `${Date.now()}_${file.originalname}`;
       return filename;

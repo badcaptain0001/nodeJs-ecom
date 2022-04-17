@@ -19,6 +19,8 @@ const corsOpts = {
   methods: [
     'GET',
     'POST',
+    'Delete',
+    'PUT',
   ],
 
   allowedHeaders: [
@@ -116,17 +118,13 @@ app.get('/files', (req, res) => {
 });
 // this is to get a single file
 app.get('/files/:filename', (req, res) => {
-  // display image
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    // Check if file
     if (!file || file.length === 0) {
       return res.status(404).json({
         err: 'No file exists'
       });
     }
-    // Check if image
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
-      // Read output to browser
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
     } else {
@@ -137,6 +135,16 @@ app.get('/files/:filename', (req, res) => {
   }
   );
 });
+// this is to delete a file
+app.delete('/files/:filename', async (req, res) => {
+  try {
+    await gfs.files.deleteOne({ filename: req.params.filename });
+    res.send("success");
+} catch (error) {
+    console.log(error);
+    res.send("An error occured.");
+}
+})
 app.listen(process.env.PORT, () => {
   console.log('Server started on port' + process.env.PORT);
 }
